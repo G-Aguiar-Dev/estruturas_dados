@@ -16,6 +16,72 @@ public class ArrayList implements Listable{
     }
 
     @Override
+    public void insert(Object data, int LogicIndex) {
+        if (isFull()) {
+            System.out.println("Lista está cheia!");
+        }
+        if (LogicIndex < 0 || LogicIndex > numberElements) {
+            System.err.println("Index inválido!");
+        }
+
+        // Avançando elementos para gerar espaço vazio
+        /*
+        int aux = tail;
+        for (int i = 0; i < numberElements - LogicIndex; i++) {
+            this.data[next(aux)] = this.data[next(aux)];
+            aux = prior(aux);
+        }
+        tail = next(tail);
+        */
+
+        // Retrocedendo elementos para gerar espaço vazio
+        int aux = head;
+        for (int i = 0; i < LogicIndex; i++) {
+            this.data[prior(aux)] = this.data[prior(aux)];
+            aux = next(aux);
+        }
+        head = prior(head);
+
+        this.data[aux] = data;
+        numberElements++;
+    }
+
+    @Override
+    public Object delete (int LogicIndex) {
+        if (isEmpty()) {
+            System.err.println("Lista está vazia!");
+        }
+
+        if (LogicIndex < 0 || LogicIndex >= numberElements) {
+            System.err.println("Index inválido!");
+        }
+
+        int PhysicalIndex = map(LogicIndex);
+        int aux = PhysicalIndex;
+        Object buffer = this.data[PhysicalIndex]; 
+        
+        //Delete baseado em Tail
+/*
+        for (int i = 0; i < numberElements - LogicIndex - 1; i++) {
+            data[aux] = data[next(aux)];
+            aux = next(aux);
+        }
+        
+        tail = prior(tail);
+*/
+        //Delete baseado em Head
+        for (int i = 0; i < LogicIndex; i++) {
+            data[aux] = data[prior(aux)];
+            aux = prior(aux);
+        }
+        
+        head = next(head);
+
+        numberElements--;
+        return buffer;
+    }
+
+    @Override
     public Object select(int LogicIndex) {
         Object temp = null;
         if (isEmpty()) {
