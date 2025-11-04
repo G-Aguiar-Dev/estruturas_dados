@@ -19,8 +19,33 @@ public class LinkedList<T> implements Listable<T>{
 
     @Override
     public void insert(T data, int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+        if (isFull()) {
+            throw new OverflowException("Lista cheia!");
+        }
+        if (index < 0 || index >= numberElements){
+            throw new IndexOutOfBoundsException("Índice inválido: " + index);
+        }
+        DoubleNode<T> previous = null;
+        DoubleNode<T> next = head;
+        DoubleNode<T> newNode = new DoubleNode<>();
+        newNode.setData(data);
+        for (int i = 0; i < index; i++) {
+            previous = next;
+            next = next.getNext();
+        }
+        if (previous != null) {
+            newNode.setPrevious(previous);
+            previous.setNext(newNode);
+        } else {
+            head = newNode;
+        }
+        if (next != null) {
+            newNode.setNext(next);
+            next.setPrevious(newNode);
+        } else {
+            tail = newNode;
+        }
+        numberElements++;
     }
 
     @Override
@@ -29,7 +54,7 @@ public class LinkedList<T> implements Listable<T>{
             throw new OverflowException("Lista Cheia!"); 
         }
 
-        DoubleNode<T> newNode = null;
+        DoubleNode<T> newNode = new DoubleNode<>();
         newNode.setData(data);
 
         if (!isEmpty()) {
@@ -44,7 +69,7 @@ public class LinkedList<T> implements Listable<T>{
     }
 
     @Override
-    public T select(int index) {;
+    public T select(int index) {
         if (isEmpty()) {
             throw new UnderflowException("Lista Vazia!");
         }
