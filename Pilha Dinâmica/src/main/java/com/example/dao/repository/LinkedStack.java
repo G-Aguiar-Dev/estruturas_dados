@@ -1,3 +1,5 @@
+package com.example.dao.repository;
+
 import java.util.NoSuchElementException;
 
 /**
@@ -41,10 +43,11 @@ public class LinkedStack<T> implements Stackable<T>{
      */
     @Override
     public T pop() {
+        T buffer = null;
         if (isEmpty()) {
             throw new NoSuchElementException("Pilha está vazia"); 
         } else {
-            T buffer = topPointer.getData();
+            buffer = topPointer.getData();
             topPointer = topPointer.getPrevious();
             if (!isEmpty()) {
 			topPointer.setNext(null);
@@ -78,7 +81,7 @@ public class LinkedStack<T> implements Stackable<T>{
      * @param newData
      */
     @Override
-    void update(T newData) {
+    public void update(T newData) {
         pop();
         push(newData);
     }
@@ -104,7 +107,7 @@ public class LinkedStack<T> implements Stackable<T>{
      * @return retorna true se a pilha estiver vazia
      */
     @Override
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return numberElements == 0;
     };
 
@@ -114,7 +117,7 @@ public class LinkedStack<T> implements Stackable<T>{
      * @return retorna true se a pilha estiver cheia
      */
     @Override
-    boolean isFull() {
+    public boolean isFull() {
         return numberElements == maxElements;
     };
 
@@ -124,11 +127,11 @@ public class LinkedStack<T> implements Stackable<T>{
      * @return String com os dados entre colchetes separados por vírgula
      */
     @Override
-    String print() {
+    public String print() {
         String result = "";
         DoubleNode<T> buffer = topPointer;
         for (int i = 0; i < numberElements; i++) {
-            result += buffer.getdata();
+            result += buffer.getData();
             buffer = buffer.getPrevious();
             if (i != numberElements - 1) {
                 result += ",";

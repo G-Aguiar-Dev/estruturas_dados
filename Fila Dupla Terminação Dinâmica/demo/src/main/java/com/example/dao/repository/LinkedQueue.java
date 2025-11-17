@@ -1,6 +1,6 @@
-import java.util.NoSuchElementException;
+package com.example.dao.repository;
 
-import com.example.dao.repository.DoubleNode;
+import java.util.NoSuchElementException;
 
 /**
  * Implementação de uma fila de dupla terminação genérica.
@@ -49,7 +49,7 @@ public class LinkedQueue<T> implements Queueable<T> {
             throw new NoSuchElementException("Fila Cheia!");
         }
         
-        DoubleNode<T> newNode = new DoubleNode();
+        DoubleNode<T> newNode = new DoubleNode<>();
         newNode.setData(data);
 
         if (isEmpty()) {
@@ -73,7 +73,7 @@ public class LinkedQueue<T> implements Queueable<T> {
             throw new NoSuchElementException("Fila Cheia!");
         }
 
-        DoubleNode<T> newNode = new DoubleNode();
+        DoubleNode<T> newNode = new DoubleNode<>();
         newNode.setData(data);
         if (isEmpty()) {
             head = newNode;
@@ -157,7 +157,7 @@ public class LinkedQueue<T> implements Queueable<T> {
     @Override
     public String printFrontToRear() {
         String buffer = "";
-        DoubleNode aux = head;
+        DoubleNode<T> aux = head;
         for (int i = 0; i < numberElements; i++) {
             buffer += aux.getData();
             aux = aux.getNext();
@@ -175,7 +175,7 @@ public class LinkedQueue<T> implements Queueable<T> {
     @Override
     public String printRearToFront() {
         String buffer = "";
-        DoubleNode aux = tail;
+        DoubleNode<T> aux = tail;
         for (int i = 0; i < numberElements; i++) {
             buffer += aux.getData();
             aux = aux.getPrevious();

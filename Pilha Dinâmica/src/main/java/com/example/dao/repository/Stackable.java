@@ -1,3 +1,5 @@
+package com.example.dao.repository;
+
 public interface Stackable<T> {
     
     // Métodos Principais

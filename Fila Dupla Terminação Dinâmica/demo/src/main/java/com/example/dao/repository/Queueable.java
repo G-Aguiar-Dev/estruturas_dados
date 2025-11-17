@@ -1,3 +1,5 @@
+package com.example.dao.repository;
+
 public interface Queueable<T>{
     
     // Métodos Principais
